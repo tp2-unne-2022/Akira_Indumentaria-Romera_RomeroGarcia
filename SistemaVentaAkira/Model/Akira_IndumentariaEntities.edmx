@@ -1,0 +1,661 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Akira_IndumentariaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CabeceraFactura">
+          <Key>
+            <PropertyRef Name="Cod_factura" />
+          </Key>
+          <Property Name="Cod_factura" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Usuario" Type="int" Nullable="false" />
+          <Property Name="Id_formaPago" Type="int" Nullable="false" />
+          <Property Name="Id_Cliente" Type="int" Nullable="false" />
+          <Property Name="cf_fechaRegistro" Type="smalldatetime" Nullable="false" />
+          <Property Name="cf_montoTotal" Type="numeric" Precision="15" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="Id_categoria" />
+          </Key>
+          <Property Name="Id_categoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cat_nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="cat_descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="cat_estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="Id_Cliente" />
+          </Key>
+          <Property Name="Id_Cliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cl_nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="cl_apellido" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="cl_dni" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="cl_email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="cl_telefono" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="cl_fechaNacimiento" Type="smalldatetime" Nullable="false" />
+          <Property Name="cl_fechaAlta" Type="smalldatetime" Nullable="false" />
+          <Property Name="cl_estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DetalleFactura">
+          <Key>
+            <PropertyRef Name="Cod_detalle" />
+            <PropertyRef Name="Cod_factura" />
+          </Key>
+          <Property Name="Cod_detalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cod_factura" Type="bigint" Nullable="false" />
+          <Property Name="Id_Producto" Type="int" Nullable="false" />
+          <Property Name="df_cantidad" Type="int" Nullable="false" />
+          <Property Name="df_precio_venta" Type="numeric" Precision="15" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Forma_Pago">
+          <Key>
+            <PropertyRef Name="Id_formaPago" />
+          </Key>
+          <Property Name="Id_formaPago" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fp_nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="fp_descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="fp_estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="Id_Producto" />
+          </Key>
+          <Property Name="Id_Producto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_categoria" Type="int" Nullable="false" />
+          <Property Name="Id_proveedor" Type="int" Nullable="false" />
+          <Property Name="Pr_nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Pr_precioVenta" Type="numeric" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="Pr_precioCompra" Type="numeric" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="Pr_stock" Type="int" Nullable="false" />
+          <Property Name="Pr_stock_minimo" Type="int" Nullable="false" />
+          <Property Name="Pr_estado" Type="bit" Nullable="false" />
+          <Property Name="Pr_reserva" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Proveedor">
+          <Key>
+            <PropertyRef Name="Id_Proveedor" />
+          </Key>
+          <Property Name="Id_Proveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Prov_razonSocial" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Prov_Cuit" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="Prov_descripcion" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Prov_telefono" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Prov_direccion" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Prov_estado" Type="bit" Nullable="false" />
+          <Property Name="Prov_nombre" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="Id_Rol" />
+          </Key>
+          <Property Name="Id_Rol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rol_nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="rol_descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="rol_estado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id_usuario" />
+          </Key>
+          <Property Name="Id_usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Rol" Type="int" Nullable="false" />
+          <Property Name="Us_nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Us_apellido" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Us_email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Us_telefono" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Us_clave" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Us_fechaNacimiento" Type="smalldatetime" Nullable="false" />
+          <Property Name="Us_estado" Type="bit" Nullable="false" />
+          <Property Name="Us_nombreuser" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <Association Name="FK_CabeceraFactura_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="CabeceraFactura" Type="Self.CabeceraFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="Id_Cliente" />
+            </Principal>
+            <Dependent Role="CabeceraFactura">
+              <PropertyRef Name="Id_Cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CabeceraFactura_Formapago">
+          <End Role="Forma_Pago" Type="Self.Forma_Pago" Multiplicity="1" />
+          <End Role="CabeceraFactura" Type="Self.CabeceraFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Forma_Pago">
+              <PropertyRef Name="Id_formaPago" />
+            </Principal>
+            <Dependent Role="CabeceraFactura">
+              <PropertyRef Name="Id_formaPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CabeceraFactura_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="CabeceraFactura" Type="Self.CabeceraFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id_usuario" />
+            </Principal>
+            <Dependent Role="CabeceraFactura">
+              <PropertyRef Name="Id_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cod_Factura_cabecera">
+          <End Role="CabeceraFactura" Type="Self.CabeceraFactura" Multiplicity="1" />
+          <End Role="DetalleFactura" Type="Self.DetalleFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CabeceraFactura">
+              <PropertyRef Name="Cod_factura" />
+            </Principal>
+            <Dependent Role="DetalleFactura">
+              <PropertyRef Name="Cod_factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetalleFactura_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="DetalleFactura" Type="Self.DetalleFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="Id_Producto" />
+            </Principal>
+            <Dependent Role="DetalleFactura">
+              <PropertyRef Name="Id_Producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Categoria">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="Id_categoria" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="Id_categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Proveedor">
+          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="Id_Proveedor" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="Id_proveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="Id_Rol" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="Id_Rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Akira_IndumentariaModelStoreContainer">
+          <EntitySet Name="CabeceraFactura" EntityType="Self.CabeceraFactura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetalleFactura" EntityType="Self.DetalleFactura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Forma_Pago" EntityType="Self.Forma_Pago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CabeceraFactura_Cliente" Association="Self.FK_CabeceraFactura_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="CabeceraFactura" EntitySet="CabeceraFactura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CabeceraFactura_Formapago" Association="Self.FK_CabeceraFactura_Formapago">
+            <End Role="Forma_Pago" EntitySet="Forma_Pago" />
+            <End Role="CabeceraFactura" EntitySet="CabeceraFactura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CabeceraFactura_Usuario" Association="Self.FK_CabeceraFactura_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="CabeceraFactura" EntitySet="CabeceraFactura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cod_Factura_cabecera" Association="Self.FK_Cod_Factura_cabecera">
+            <End Role="CabeceraFactura" EntitySet="CabeceraFactura" />
+            <End Role="DetalleFactura" EntitySet="DetalleFactura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetalleFactura_Producto" Association="Self.FK_DetalleFactura_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="DetalleFactura" EntitySet="DetalleFactura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Categoria" Association="Self.FK_Producto_Categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Proveedor" Association="Self.FK_Producto_Proveedor">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Akira_IndumentariaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Akira_IndumentariaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CabeceraFactura" EntityType="Akira_IndumentariaModel.CabeceraFactura" />
+          <EntitySet Name="Categoria" EntityType="Akira_IndumentariaModel.Categoria" />
+          <EntitySet Name="Cliente" EntityType="Akira_IndumentariaModel.Cliente" />
+          <EntitySet Name="DetalleFactura" EntityType="Akira_IndumentariaModel.DetalleFactura" />
+          <EntitySet Name="Forma_Pago" EntityType="Akira_IndumentariaModel.Forma_Pago" />
+          <EntitySet Name="Producto" EntityType="Akira_IndumentariaModel.Producto" />
+          <EntitySet Name="Proveedor" EntityType="Akira_IndumentariaModel.Proveedor" />
+          <EntitySet Name="Rol" EntityType="Akira_IndumentariaModel.Rol" />
+          <EntitySet Name="Usuario" EntityType="Akira_IndumentariaModel.Usuario" />
+          <AssociationSet Name="FK_CabeceraFactura_Cliente" Association="Akira_IndumentariaModel.FK_CabeceraFactura_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="CabeceraFactura" EntitySet="CabeceraFactura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CabeceraFactura_Formapago" Association="Akira_IndumentariaModel.FK_CabeceraFactura_Formapago">
+            <End Role="Forma_Pago" EntitySet="Forma_Pago" />
+            <End Role="CabeceraFactura" EntitySet="CabeceraFactura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CabeceraFactura_Usuario" Association="Akira_IndumentariaModel.FK_CabeceraFactura_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="CabeceraFactura" EntitySet="CabeceraFactura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cod_Factura_cabecera" Association="Akira_IndumentariaModel.FK_Cod_Factura_cabecera">
+            <End Role="CabeceraFactura" EntitySet="CabeceraFactura" />
+            <End Role="DetalleFactura" EntitySet="DetalleFactura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Categoria" Association="Akira_IndumentariaModel.FK_Producto_Categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetalleFactura_Producto" Association="Akira_IndumentariaModel.FK_DetalleFactura_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="DetalleFactura" EntitySet="DetalleFactura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Proveedor" Association="Akira_IndumentariaModel.FK_Producto_Proveedor">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Rol" Association="Akira_IndumentariaModel.FK_Usuario_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CabeceraFactura">
+          <Key>
+            <PropertyRef Name="Cod_factura" />
+          </Key>
+          <Property Name="Cod_factura" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Usuario" Type="Int32" Nullable="false" />
+          <Property Name="Id_formaPago" Type="Int32" Nullable="false" />
+          <Property Name="Id_Cliente" Type="Int32" Nullable="false" />
+          <Property Name="cf_fechaRegistro" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="cf_montoTotal" Type="Decimal" Nullable="false" Precision="15" Scale="2" />
+          <NavigationProperty Name="Cliente" Relationship="Akira_IndumentariaModel.FK_CabeceraFactura_Cliente" FromRole="CabeceraFactura" ToRole="Cliente" />
+          <NavigationProperty Name="Forma_Pago" Relationship="Akira_IndumentariaModel.FK_CabeceraFactura_Formapago" FromRole="CabeceraFactura" ToRole="Forma_Pago" />
+          <NavigationProperty Name="Usuario" Relationship="Akira_IndumentariaModel.FK_CabeceraFactura_Usuario" FromRole="CabeceraFactura" ToRole="Usuario" />
+          <NavigationProperty Name="DetalleFactura" Relationship="Akira_IndumentariaModel.FK_Cod_Factura_cabecera" FromRole="CabeceraFactura" ToRole="DetalleFactura" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="Id_categoria" />
+          </Key>
+          <Property Name="Id_categoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cat_nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cat_descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cat_estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Producto" Relationship="Akira_IndumentariaModel.FK_Producto_Categoria" FromRole="Categoria" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="Id_Cliente" />
+          </Key>
+          <Property Name="Id_Cliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cl_nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cl_apellido" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cl_dni" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="cl_email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cl_telefono" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="cl_fechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="cl_fechaAlta" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="cl_estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CabeceraFactura" Relationship="Akira_IndumentariaModel.FK_CabeceraFactura_Cliente" FromRole="Cliente" ToRole="CabeceraFactura" />
+        </EntityType>
+        <EntityType Name="DetalleFactura">
+          <Key>
+            <PropertyRef Name="Cod_detalle" />
+            <PropertyRef Name="Cod_factura" />
+          </Key>
+          <Property Name="Cod_detalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cod_factura" Type="Int64" Nullable="false" />
+          <Property Name="Id_Producto" Type="Int32" Nullable="false" />
+          <Property Name="df_cantidad" Type="Int32" Nullable="false" />
+          <Property Name="df_precio_venta" Type="Decimal" Nullable="false" Precision="15" Scale="2" />
+          <NavigationProperty Name="CabeceraFactura" Relationship="Akira_IndumentariaModel.FK_Cod_Factura_cabecera" FromRole="DetalleFactura" ToRole="CabeceraFactura" />
+          <NavigationProperty Name="Producto" Relationship="Akira_IndumentariaModel.FK_DetalleFactura_Producto" FromRole="DetalleFactura" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Forma_Pago">
+          <Key>
+            <PropertyRef Name="Id_formaPago" />
+          </Key>
+          <Property Name="Id_formaPago" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fp_nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="fp_descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="fp_estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CabeceraFactura" Relationship="Akira_IndumentariaModel.FK_CabeceraFactura_Formapago" FromRole="Forma_Pago" ToRole="CabeceraFactura" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="Id_Producto" />
+          </Key>
+          <Property Name="Id_Producto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_categoria" Type="Int32" Nullable="false" />
+          <Property Name="Id_proveedor" Type="Int32" Nullable="false" />
+          <Property Name="Pr_nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Pr_precioVenta" Type="Decimal" Nullable="false" Precision="15" Scale="2" />
+          <Property Name="Pr_precioCompra" Type="Decimal" Nullable="false" Precision="15" Scale="2" />
+          <Property Name="Pr_stock" Type="Int32" Nullable="false" />
+          <Property Name="Pr_stock_minimo" Type="Int32" Nullable="false" />
+          <Property Name="Pr_estado" Type="Boolean" Nullable="false" />
+          <Property Name="Pr_reserva" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Categoria" Relationship="Akira_IndumentariaModel.FK_Producto_Categoria" FromRole="Producto" ToRole="Categoria" />
+          <NavigationProperty Name="DetalleFactura" Relationship="Akira_IndumentariaModel.FK_DetalleFactura_Producto" FromRole="Producto" ToRole="DetalleFactura" />
+          <NavigationProperty Name="Proveedor" Relationship="Akira_IndumentariaModel.FK_Producto_Proveedor" FromRole="Producto" ToRole="Proveedor" />
+        </EntityType>
+        <EntityType Name="Proveedor">
+          <Key>
+            <PropertyRef Name="Id_Proveedor" />
+          </Key>
+          <Property Name="Id_Proveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Prov_razonSocial" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Prov_Cuit" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="Prov_descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Prov_telefono" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Prov_direccion" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Prov_estado" Type="Boolean" Nullable="false" />
+          <Property Name="Prov_nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Producto" Relationship="Akira_IndumentariaModel.FK_Producto_Proveedor" FromRole="Proveedor" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="Id_Rol" />
+          </Key>
+          <Property Name="Id_Rol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rol_nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="rol_descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="rol_estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Akira_IndumentariaModel.FK_Usuario_Rol" FromRole="Rol" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id_usuario" />
+          </Key>
+          <Property Name="Id_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Rol" Type="Int32" Nullable="false" />
+          <Property Name="Us_nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Us_apellido" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Us_email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Us_telefono" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Us_clave" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Us_fechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Us_estado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CabeceraFactura" Relationship="Akira_IndumentariaModel.FK_CabeceraFactura_Usuario" FromRole="Usuario" ToRole="CabeceraFactura" />
+          <NavigationProperty Name="Rol" Relationship="Akira_IndumentariaModel.FK_Usuario_Rol" FromRole="Usuario" ToRole="Rol" />
+          <Property Name="Us_nombreuser" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_CabeceraFactura_Cliente">
+          <End Type="Akira_IndumentariaModel.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="Akira_IndumentariaModel.CabeceraFactura" Role="CabeceraFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="Id_Cliente" />
+            </Principal>
+            <Dependent Role="CabeceraFactura">
+              <PropertyRef Name="Id_Cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CabeceraFactura_Formapago">
+          <End Type="Akira_IndumentariaModel.Forma_Pago" Role="Forma_Pago" Multiplicity="1" />
+          <End Type="Akira_IndumentariaModel.CabeceraFactura" Role="CabeceraFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Forma_Pago">
+              <PropertyRef Name="Id_formaPago" />
+            </Principal>
+            <Dependent Role="CabeceraFactura">
+              <PropertyRef Name="Id_formaPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CabeceraFactura_Usuario">
+          <End Type="Akira_IndumentariaModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="Akira_IndumentariaModel.CabeceraFactura" Role="CabeceraFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id_usuario" />
+            </Principal>
+            <Dependent Role="CabeceraFactura">
+              <PropertyRef Name="Id_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cod_Factura_cabecera">
+          <End Type="Akira_IndumentariaModel.CabeceraFactura" Role="CabeceraFactura" Multiplicity="1" />
+          <End Type="Akira_IndumentariaModel.DetalleFactura" Role="DetalleFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CabeceraFactura">
+              <PropertyRef Name="Cod_factura" />
+            </Principal>
+            <Dependent Role="DetalleFactura">
+              <PropertyRef Name="Cod_factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Categoria">
+          <End Type="Akira_IndumentariaModel.Categoria" Role="Categoria" Multiplicity="1" />
+          <End Type="Akira_IndumentariaModel.Producto" Role="Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="Id_categoria" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="Id_categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetalleFactura_Producto">
+          <End Type="Akira_IndumentariaModel.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="Akira_IndumentariaModel.DetalleFactura" Role="DetalleFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="Id_Producto" />
+            </Principal>
+            <Dependent Role="DetalleFactura">
+              <PropertyRef Name="Id_Producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Proveedor">
+          <End Type="Akira_IndumentariaModel.Proveedor" Role="Proveedor" Multiplicity="1" />
+          <End Type="Akira_IndumentariaModel.Producto" Role="Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="Id_Proveedor" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="Id_proveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Rol">
+          <End Type="Akira_IndumentariaModel.Rol" Role="Rol" Multiplicity="1" />
+          <End Type="Akira_IndumentariaModel.Usuario" Role="Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="Id_Rol" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="Id_Rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Akira_IndumentariaModelStoreContainer" CdmEntityContainer="Akira_IndumentariaEntities">
+          <EntitySetMapping Name="CabeceraFactura">
+            <EntityTypeMapping TypeName="Akira_IndumentariaModel.CabeceraFactura">
+              <MappingFragment StoreEntitySet="CabeceraFactura">
+                <ScalarProperty Name="cf_montoTotal" ColumnName="cf_montoTotal" />
+                <ScalarProperty Name="cf_fechaRegistro" ColumnName="cf_fechaRegistro" />
+                <ScalarProperty Name="Id_Cliente" ColumnName="Id_Cliente" />
+                <ScalarProperty Name="Id_formaPago" ColumnName="Id_formaPago" />
+                <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
+                <ScalarProperty Name="Cod_factura" ColumnName="Cod_factura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categoria">
+            <EntityTypeMapping TypeName="Akira_IndumentariaModel.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="cat_estado" ColumnName="cat_estado" />
+                <ScalarProperty Name="cat_descripcion" ColumnName="cat_descripcion" />
+                <ScalarProperty Name="cat_nombre" ColumnName="cat_nombre" />
+                <ScalarProperty Name="Id_categoria" ColumnName="Id_categoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="Akira_IndumentariaModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="cl_estado" ColumnName="cl_estado" />
+                <ScalarProperty Name="cl_fechaAlta" ColumnName="cl_fechaAlta" />
+                <ScalarProperty Name="cl_fechaNacimiento" ColumnName="cl_fechaNacimiento" />
+                <ScalarProperty Name="cl_telefono" ColumnName="cl_telefono" />
+                <ScalarProperty Name="cl_email" ColumnName="cl_email" />
+                <ScalarProperty Name="cl_dni" ColumnName="cl_dni" />
+                <ScalarProperty Name="cl_apellido" ColumnName="cl_apellido" />
+                <ScalarProperty Name="cl_nombre" ColumnName="cl_nombre" />
+                <ScalarProperty Name="Id_Cliente" ColumnName="Id_Cliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleFactura">
+            <EntityTypeMapping TypeName="Akira_IndumentariaModel.DetalleFactura">
+              <MappingFragment StoreEntitySet="DetalleFactura">
+                <ScalarProperty Name="df_precio_venta" ColumnName="df_precio_venta" />
+                <ScalarProperty Name="df_cantidad" ColumnName="df_cantidad" />
+                <ScalarProperty Name="Id_Producto" ColumnName="Id_Producto" />
+                <ScalarProperty Name="Cod_factura" ColumnName="Cod_factura" />
+                <ScalarProperty Name="Cod_detalle" ColumnName="Cod_detalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Forma_Pago">
+            <EntityTypeMapping TypeName="Akira_IndumentariaModel.Forma_Pago">
+              <MappingFragment StoreEntitySet="Forma_Pago">
+                <ScalarProperty Name="fp_estado" ColumnName="fp_estado" />
+                <ScalarProperty Name="fp_descripcion" ColumnName="fp_descripcion" />
+                <ScalarProperty Name="fp_nombre" ColumnName="fp_nombre" />
+                <ScalarProperty Name="Id_formaPago" ColumnName="Id_formaPago" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="Akira_IndumentariaModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="Pr_reserva" ColumnName="Pr_reserva" />
+                <ScalarProperty Name="Pr_estado" ColumnName="Pr_estado" />
+                <ScalarProperty Name="Pr_stock_minimo" ColumnName="Pr_stock_minimo" />
+                <ScalarProperty Name="Pr_stock" ColumnName="Pr_stock" />
+                <ScalarProperty Name="Pr_precioCompra" ColumnName="Pr_precioCompra" />
+                <ScalarProperty Name="Pr_precioVenta" ColumnName="Pr_precioVenta" />
+                <ScalarProperty Name="Pr_nombre" ColumnName="Pr_nombre" />
+                <ScalarProperty Name="Id_proveedor" ColumnName="Id_proveedor" />
+                <ScalarProperty Name="Id_categoria" ColumnName="Id_categoria" />
+                <ScalarProperty Name="Id_Producto" ColumnName="Id_Producto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proveedor">
+            <EntityTypeMapping TypeName="Akira_IndumentariaModel.Proveedor">
+              <MappingFragment StoreEntitySet="Proveedor">
+                <ScalarProperty Name="Prov_nombre" ColumnName="Prov_nombre" />
+                <ScalarProperty Name="Prov_estado" ColumnName="Prov_estado" />
+                <ScalarProperty Name="Prov_direccion" ColumnName="Prov_direccion" />
+                <ScalarProperty Name="Prov_telefono" ColumnName="Prov_telefono" />
+                <ScalarProperty Name="Prov_descripcion" ColumnName="Prov_descripcion" />
+                <ScalarProperty Name="Prov_Cuit" ColumnName="Prov_Cuit" />
+                <ScalarProperty Name="Prov_razonSocial" ColumnName="Prov_razonSocial" />
+                <ScalarProperty Name="Id_Proveedor" ColumnName="Id_Proveedor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="Akira_IndumentariaModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="rol_estado" ColumnName="rol_estado" />
+                <ScalarProperty Name="rol_descripcion" ColumnName="rol_descripcion" />
+                <ScalarProperty Name="rol_nombre" ColumnName="rol_nombre" />
+                <ScalarProperty Name="Id_Rol" ColumnName="Id_Rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="Akira_IndumentariaModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Us_nombreuser" ColumnName="Us_nombreuser" />
+                <ScalarProperty Name="Us_estado" ColumnName="Us_estado" />
+                <ScalarProperty Name="Us_fechaNacimiento" ColumnName="Us_fechaNacimiento" />
+                <ScalarProperty Name="Us_clave" ColumnName="Us_clave" />
+                <ScalarProperty Name="Us_telefono" ColumnName="Us_telefono" />
+                <ScalarProperty Name="Us_email" ColumnName="Us_email" />
+                <ScalarProperty Name="Us_apellido" ColumnName="Us_apellido" />
+                <ScalarProperty Name="Us_nombre" ColumnName="Us_nombre" />
+                <ScalarProperty Name="Id_Rol" ColumnName="Id_Rol" />
+                <ScalarProperty Name="Id_usuario" ColumnName="Id_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

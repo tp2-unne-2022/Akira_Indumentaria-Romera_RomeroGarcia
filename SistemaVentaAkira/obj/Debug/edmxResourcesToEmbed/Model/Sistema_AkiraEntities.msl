@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Sistema_AkiraModelStoreContainer" CdmEntityContainer="dbSistema_Akira">
+    <EntitySetMapping Name="Categoria">
+      <EntityTypeMapping TypeName="Sistema_AkiraModel.Categoria">
+        <MappingFragment StoreEntitySet="Categoria">
+          <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+          <ScalarProperty Name="cat_nombre" ColumnName="cat_nombre" />
+          <ScalarProperty Name="cat_descripcion" ColumnName="cat_descripcion" />
+          <ScalarProperty Name="cat_estado" ColumnName="cat_estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Producto">
+      <EntityTypeMapping TypeName="Sistema_AkiraModel.Producto">
+        <MappingFragment StoreEntitySet="Producto">
+          <ScalarProperty Name="id_Producto" ColumnName="id_Producto" />
+          <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+          <ScalarProperty Name="prod_nombre" ColumnName="prod_nombre" />
+          <ScalarProperty Name="prod_precioCompra" ColumnName="prod_precioCompra" />
+          <ScalarProperty Name="prod_precioVenta" ColumnName="prod_precioVenta" />
+          <ScalarProperty Name="prod_stock" ColumnName="prod_stock" />
+          <ScalarProperty Name="prod_estado" ColumnName="prod_estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

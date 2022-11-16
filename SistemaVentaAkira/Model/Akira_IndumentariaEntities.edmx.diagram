@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d6d790296283403d8ca923be3fea3a4b" Name="Diagram1">
+        <EntityTypeShape EntityType="Akira_IndumentariaModel.CabeceraFactura" Width="1.5" PointX="5.25" PointY="1.125" />
+        <EntityTypeShape EntityType="Akira_IndumentariaModel.Categoria" Width="1.5" PointX="3" PointY="16.375" />
+        <EntityTypeShape EntityType="Akira_IndumentariaModel.Cliente" Width="1.5" PointX="3" PointY="6.25" />
+        <EntityTypeShape EntityType="Akira_IndumentariaModel.DetalleFactura" Width="1.5" PointX="7.5" PointY="1.375" />
+        <EntityTypeShape EntityType="Akira_IndumentariaModel.Forma_Pago" Width="1.5" PointX="3" PointY="9.875" />
+        <EntityTypeShape EntityType="Akira_IndumentariaModel.Producto" Width="1.5" PointX="5.25" PointY="13.75" />
+        <EntityTypeShape EntityType="Akira_IndumentariaModel.Proveedor" Width="1.5" PointX="3" PointY="12.875" />
+        <EntityTypeShape EntityType="Akira_IndumentariaModel.Rol" Width="1.5" PointX="0.75" PointY="1.5" />
+        <EntityTypeShape EntityType="Akira_IndumentariaModel.Usuario" Width="1.5" PointX="3" PointY="1" />
+        <AssociationConnector Association="Akira_IndumentariaModel.FK_CabeceraFactura_Cliente" />
+        <AssociationConnector Association="Akira_IndumentariaModel.FK_CabeceraFactura_Formapago" />
+        <AssociationConnector Association="Akira_IndumentariaModel.FK_CabeceraFactura_Usuario" />
+        <AssociationConnector Association="Akira_IndumentariaModel.FK_Cod_Factura_cabecera" />
+        <AssociationConnector Association="Akira_IndumentariaModel.FK_Producto_Categoria" />
+        <AssociationConnector Association="Akira_IndumentariaModel.FK_DetalleFactura_Producto" />
+        <AssociationConnector Association="Akira_IndumentariaModel.FK_Producto_Proveedor" />
+        <AssociationConnector Association="Akira_IndumentariaModel.FK_Usuario_Rol" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Akira_IndumentariaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CabeceraFactura">
+    <Key>
+      <PropertyRef Name="Cod_factura" />
+    </Key>
+    <Property Name="Cod_factura" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_Usuario" Type="int" Nullable="false" />
+    <Property Name="Id_formaPago" Type="int" Nullable="false" />
+    <Property Name="Id_Cliente" Type="int" Nullable="false" />
+    <Property Name="cf_fechaRegistro" Type="smalldatetime" Nullable="false" />
+    <Property Name="cf_montoTotal" Type="numeric" Precision="15" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Categoria">
+    <Key>
+      <PropertyRef Name="Id_categoria" />
+    </Key>
+    <Property Name="Id_categoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cat_nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="cat_descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="cat_estado" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="Id_Cliente" />
+    </Key>
+    <Property Name="Id_Cliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cl_nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="cl_apellido" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="cl_dni" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="cl_email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="cl_telefono" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="cl_fechaNacimiento" Type="smalldatetime" Nullable="false" />
+    <Property Name="cl_fechaAlta" Type="smalldatetime" Nullable="false" />
+    <Property Name="cl_estado" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DetalleFactura">
+    <Key>
+      <PropertyRef Name="Cod_factura" />
+      <PropertyRef Name="Cod_detalle" />
+    </Key>
+    <Property Name="Cod_factura" Type="bigint" Nullable="false" />
+    <Property Name="Cod_detalle" Type="int" Nullable="false" />
+    <Property Name="Id_Producto" Type="int" Nullable="false" />
+    <Property Name="df_cantidad" Type="int" Nullable="false" />
+    <Property Name="df_precio_venta" Type="numeric" Precision="15" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Forma_Pago">
+    <Key>
+      <PropertyRef Name="Id_formaPago" />
+    </Key>
+    <Property Name="Id_formaPago" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fp_nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="fp_descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="fp_estado" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="Id_Producto" />
+    </Key>
+    <Property Name="Id_Producto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_categoria" Type="int" Nullable="false" />
+    <Property Name="Id_proveedor" Type="int" Nullable="false" />
+    <Property Name="Pr_nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Pr_precioVenta" Type="numeric" Precision="15" Scale="2" Nullable="false" />
+    <Property Name="Pr_precioCompra" Type="numeric" Precision="15" Scale="2" Nullable="false" />
+    <Property Name="Pr_stock" Type="int" Nullable="false" />
+    <Property Name="Pr_stock_minimo" Type="int" Nullable="false" />
+    <Property Name="Pr_estado" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Proveedor">
+    <Key>
+      <PropertyRef Name="Id_Proveedor" />
+    </Key>
+    <Property Name="Id_Proveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Prov_razonSocial" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Prov_Cuit" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="Prov_descripcion" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Prov_telefono" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Prov_direccion" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Prov_estado" Type="bit" Nullable="false" />
+    <Property Name="Prov_nombre" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Rol">
+    <Key>
+      <PropertyRef Name="Id_Rol" />
+    </Key>
+    <Property Name="Id_Rol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="rol_nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="rol_descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="rol_estado" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="Id_usuario" />
+    </Key>
+    <Property Name="Id_usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_Rol" Type="int" Nullable="false" />
+    <Property Name="Us_nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Us_apellido" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Us_email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Us_telefono" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Us_clave" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Us_fechaNacimiento" Type="smalldatetime" Nullable="false" />
+    <Property Name="Us_estado" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_CabeceraFactura_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="CabeceraFactura" Type="Self.CabeceraFactura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="Id_Cliente" />
+      </Principal>
+      <Dependent Role="CabeceraFactura">
+        <PropertyRef Name="Id_Cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CabeceraFactura_Formapago">
+    <End Role="Forma_Pago" Type="Self.Forma_Pago" Multiplicity="1" />
+    <End Role="CabeceraFactura" Type="Self.CabeceraFactura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Forma_Pago">
+        <PropertyRef Name="Id_formaPago" />
+      </Principal>
+      <Dependent Role="CabeceraFactura">
+        <PropertyRef Name="Id_formaPago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CabeceraFactura_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="CabeceraFactura" Type="Self.CabeceraFactura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="Id_usuario" />
+      </Principal>
+      <Dependent Role="CabeceraFactura">
+        <PropertyRef Name="Id_Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleFactura_factura">
+    <End Role="CabeceraFactura" Type="Self.CabeceraFactura" Multiplicity="1" />
+    <End Role="DetalleFactura" Type="Self.DetalleFactura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CabeceraFactura">
+        <PropertyRef Name="Cod_factura" />
+      </Principal>
+      <Dependent Role="DetalleFactura">
+        <PropertyRef Name="Cod_factura" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleFactura_Producto">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+    <End Role="DetalleFactura" Type="Self.DetalleFactura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="Id_Producto" />
+      </Principal>
+      <Dependent Role="DetalleFactura">
+        <PropertyRef Name="Id_Producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Producto_Categoria">
+    <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+    <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categoria">
+        <PropertyRef Name="Id_categoria" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="Id_categoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Producto_Proveedor">
+    <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
+    <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedor">
+        <PropertyRef Name="Id_Proveedor" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="Id_proveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuario_Rol">
+    <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="Id_Rol" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="Id_Rol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Akira_IndumentariaModelStoreContainer">
+    <EntitySet Name="CabeceraFactura" EntityType="Self.CabeceraFactura" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DetalleFactura" EntityType="Self.DetalleFactura" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Forma_Pago" EntityType="Self.Forma_Pago" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_CabeceraFactura_Cliente" Association="Self.FK_CabeceraFactura_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="CabeceraFactura" EntitySet="CabeceraFactura" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CabeceraFactura_Formapago" Association="Self.FK_CabeceraFactura_Formapago">
+      <End Role="Forma_Pago" EntitySet="Forma_Pago" />
+      <End Role="CabeceraFactura" EntitySet="CabeceraFactura" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CabeceraFactura_Usuario" Association="Self.FK_CabeceraFactura_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="CabeceraFactura" EntitySet="CabeceraFactura" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleFactura_factura" Association="Self.FK_DetalleFactura_factura">
+      <End Role="CabeceraFactura" EntitySet="CabeceraFactura" />
+      <End Role="DetalleFactura" EntitySet="DetalleFactura" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleFactura_Producto" Association="Self.FK_DetalleFactura_Producto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="DetalleFactura" EntitySet="DetalleFactura" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Producto_Categoria" Association="Self.FK_Producto_Categoria">
+      <End Role="Categoria" EntitySet="Categoria" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Producto_Proveedor" Association="Self.FK_Producto_Proveedor">
+      <End Role="Proveedor" EntitySet="Proveedor" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
+      <End Role="Rol" EntitySet="Rol" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
